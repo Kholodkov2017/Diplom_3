@@ -27,11 +27,12 @@ public class DriverFactoryHelper {
                 return initializeRemoteWebDriver(BrowserType.FIREFOX, DEFAULT_BROWSER_VERSION);
             }
             default: {
-                ChromeOptions options = new ChromeOptions();
-                options.setBinary(YANDEX_BROWSER_NAME);
-                WebDriver driver = new ChromeDriver();
-                driver.manage().window().maximize();
-                return driver;
+                return initializeRemoteWebDriver(BrowserType.CHROME, "110.0.5481.208");
+//                ChromeOptions options = new ChromeOptions();
+//                options.setBinary(YANDEX_BROWSER_NAME);
+//                WebDriver driver = new ChromeDriver();
+//                driver.manage().window().maximize();
+//                return driver;
             }
         }
     }

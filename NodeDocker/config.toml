@@ -4,7 +4,8 @@
 configs = [
     "selenium/standalone-firefox:4.8.3-20230404", "{\"browserName\": \"firefox\",  \"browserVersion\": \"111\"}",
     "selenium/standalone-chrome:4.8.3-20230404", "{\"browserName\": \"chrome\", \"browserVersion\": \"111\"}",
-    "selenium/standalone-edge:4.8.3-20230404", "{\"browserName\": \"MicrosoftEdge\", \"browserVersion\": \"111\"}"
+    "selenium/standalone-edge:4.8.3-20230404", "{\"browserName\": \"MicrosoftEdge\", \"browserVersion\": \"111\"}",
+    "yandex-browser", "{\"browserName\": \"chrome\", \"browserVersion\": \"110.0.5481.208\"}"
 ]
 
 # URL for connecting to the docker daemon

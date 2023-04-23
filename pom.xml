@@ -157,7 +157,7 @@
                             <excludes>
                                 <exclude>**/ConstructorPageTest.java</exclude>
                             </excludes>
-                            <forkCount>12</forkCount>
+                            <forkCount>4</forkCount>
                             <reuseForks>true</reuseForks>
                             <parallel>all</parallel>
                             <useUnlimitedThreads>true</useUnlimitedThreads>

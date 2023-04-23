@@ -20,30 +20,38 @@ public class ConstructorPageTest extends TestBase {
     @Test
     @DisplayName("Check that the section navigations is working ")
     @Parameters({
-            "chrome,Булки",
-            "chrome,Соусы",
-            "chrome,Начинки",
-            "edge,Булки",
-            "edge,Соусы",
-            "edge,Начинки",
-            "firefox,Булки",
-            "firefox,Соусы",
-            "firefox,Начинки",
-            "yandex,Булки",
-            "yandex,Соусы",
-            "yandex,Начинки"
+            "chrome,Булки,Начинки",
+            "chrome,Соусы,Булки",
+            "chrome,Начинки,Булки",
+            "edge,Булки,Начинки",
+            "edge,Соусы,Булки",
+            "edge,Начинки,Булки",
+            "firefox,Булки,Начинки",
+            "firefox,Соусы,Булки",
+            "firefox,Начинки,Булки",
+            "yandex,Булки,Начинки",
+            "yandex,Соусы,Булки",
+            "yandex,Начинки,Булки"
     })
-    public void checkThatTheSectionNavigationIsWorkingTest(String driverType, String ingredientType) throws MalformedURLException, InterruptedException {
+    public void checkThatTheSectionNavigationIsWorkingTest(
+            String driverType,
+            String ingredientType,
+            String elementShouldBeHidden)
+            throws MalformedURLException, InterruptedException {
         driver = setupDriver(driverType);
         OrderPageObject orderPageObject = new OrderPageObject(driver);
-        Double oldElementPosition = orderPageObject.clickByIngredientTypeButton(ingredientType);
+        if (ingredientType.equals("Булки")) {
+            orderPageObject.clickByIngredientTypeButton("Начинки");
+            orderPageObject.waitUntilIngredientTypeWillBeChanged("Булки");
+        }
+        Double oldElementPosition = orderPageObject.clickByIngredientTypeButton("Начинки");
         driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
 
-        // Использовал не самый кашерный подход поскольку необходимо дождаться, пока нужный
-        // ингирдиент проскролится к верхней части блока
         driver.manage().timeouts().implicitlyWait(DEFAULT_WAITING, TimeUnit.SECONDS);
-        orderPageObject.waitUntilIngredientTypeWillBeChanged(ingredientType);
-        Thread.sleep(300);
-        assertTrue(orderPageObject.isIngredientsBlockChangedPosition(ingredientType, oldElementPosition));
+        orderPageObject.clickByIngredientTypeButton(ingredientType);
+        orderPageObject.waitUntilIngredientTypeWillBeChanged(elementShouldBeHidden);
+        assertTrue(Double.compare(
+                oldElementPosition,
+                orderPageObject.getIngredientsBlockChangedPosition(ingredientType)) > 0 );
     }
 }

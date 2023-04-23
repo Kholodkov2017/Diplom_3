@@ -12,9 +12,9 @@ import pageobejct.*;
 import java.net.MalformedURLException;
 import java.util.concurrent.TimeUnit;
 
-import static api.client.UserClient.getUserDeleteResponse;
 import static helpers.Constants.*;
 import static org.junit.Assert.assertTrue;
+import static clients.UserClient.getUserDeleteResponse;
 @RunWith(JUnitParamsRunner.class)
 public class LoginPageTest extends TestBase {
 

@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.*;
@@ -121,9 +122,8 @@ public class OrderPageObject {
         return (Double) js.executeScript(jsScript);
     }
 
-    public boolean isIngredientsBlockChangedPosition(String ingredientType, Double oldElementPosition) {
-        Double actualIngredientTypePosition = getPositionOfElementByXpath(ingredientsHeaderLocators.get(ingredientType));
-        return oldElementPosition.intValue() > actualIngredientTypePosition.intValue();
+    public Double getIngredientsBlockChangedPosition(String ingredientType) {
+        return getPositionOfElementByXpath(ingredientsHeaderLocators.get(ingredientType));
     }
 
     public boolean isMainPageHeaderDisplayed() {
@@ -136,7 +136,26 @@ public class OrderPageObject {
     }
 
     public void waitUntilIngredientTypeWillBeChanged(String ingredientType) {
-        String xpath = String.format(".//div[contains(@class,'current')]/span[text()='%s']", ingredientType);
-        new WebDriverWait(driver, DEFAULT_WAITING).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(xpath))));
+        String xpath = String.format(".//h2[text()='%s']", ingredientType);
+        new WebDriverWait(driver, DEFAULT_WAITING).until(driver -> !isVisibleInViewport(driver.findElement(By.xpath(xpath))));
+//        String xpath = String.format(".//div[contains(@class,'current')]/span[text()='%s']", ingredientType);
+//        new WebDriverWait(driver, DEFAULT_WAITING).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(xpath))));
+    }
+
+    public static Boolean isVisibleInViewport(WebElement element) {
+        WebDriver dr = ((RemoteWebElement)element).getWrappedDriver();
+
+        return (Boolean)((JavascriptExecutor)dr).executeScript(
+                "var elem = arguments[0],                 " +
+                        "  box = elem.getBoundingClientRect(),    " +
+                        "  cx = box.left + box.width / 2,         " +
+                        "  cy = box.top + box.height / 2,         " +
+                        "  e = document.elementFromPoint(cx, cy); " +
+                        "for (; e; e = e.parentElement) {         " +
+                        "  if (e === elem)                        " +
+                        "    return true;                         " +
+                        "}                                        " +
+                        "return false;                            "
+                , element);
     }
 }

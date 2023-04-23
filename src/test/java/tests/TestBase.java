@@ -8,10 +8,9 @@ import org.javatuples.Pair;
 import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.WebDriver;
-
 import java.net.MalformedURLException;
 
-import static api.client.UserClient.getUserCreationResponse;
+import static clients.UserClient.getUserCreationResponse;
 import static helpers.Constants.BASE_URL;
 
 public class TestBase {
@@ -32,7 +31,7 @@ public class TestBase {
     protected Pair<String, CreateUserModel> createTestUser() {
         CreateUserModel userShouldBeCreated = CreateUserModel.createFakeUser("");
         ValidatableResponse response = getUserCreationResponse(userShouldBeCreated);
-        return new Pair<>(response.extract().path("accessToken"), userShouldBeCreated) ;
+        return new Pair<>(response.extract().path("accessToken"), userShouldBeCreated);
     }
 
     protected WebDriver setupDriver(String driverType) throws MalformedURLException {

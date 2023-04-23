@@ -14,10 +14,11 @@ import pageobejct.PersonalCabinetPageObject;
 import java.net.MalformedURLException;
 import java.util.concurrent.TimeUnit;
 
-import static api.client.UserClient.getUserDeleteResponse;
+import static clients.UserClient.getUserDeleteResponse;
 import static helpers.Constants.FRONT_LOGIN_PAGE;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
 
 @RunWith(JUnitParamsRunner.class)
 public class PersonalCabinetTest extends TestBase{
