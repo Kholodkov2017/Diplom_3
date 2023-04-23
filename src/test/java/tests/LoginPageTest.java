@@ -3,8 +3,6 @@ package tests;
 import io.qameta.allure.junit4.DisplayName;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
-import model.CreateUserModel;
-import org.javatuples.Pair;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import pageobejct.*;
@@ -14,7 +12,6 @@ import java.util.concurrent.TimeUnit;
 
 import static helpers.Constants.*;
 import static org.junit.Assert.assertTrue;
-import static clients.UserClient.getUserDeleteResponse;
 @RunWith(JUnitParamsRunner.class)
 public class LoginPageTest extends TestBase {
 
@@ -22,7 +19,6 @@ public class LoginPageTest extends TestBase {
     @Parameters({"chrome", "edge", "firefox", "yandex"})
     @DisplayName("Attempt to login user with go to account button")
     public void checkTheAbbilityToLogInUsingGoToAccounButtonWithPositiveResultTest(String driverType) throws MalformedURLException {
-        Pair<String, CreateUserModel> userData = createTestUser();
         driver = setupDriver(driverType);
 
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
@@ -34,22 +30,19 @@ public class LoginPageTest extends TestBase {
 
         loginPageObject.waitUntilLoginPageHeaderWillBeLoaded();
 
-        loginPageObject.fillLoginForm(userData.getValue1().getEmail(), userData.getValue1().getPassword());
+        loginPageObject.fillLoginForm(userData.getValue0().getEmail(), userData.getValue0().getPassword());
 
         loginPageObject.clickToLoginButton();
 
         orderPageObject.waitUntilMainPageHeaderWillBeLoaded();
 
         assertTrue(orderPageObject.isAccessTokenExistsInLocalStorage());
-
-        getUserDeleteResponse(userData.getValue0());
     }
 
     @Test
     @DisplayName("Attempt to login user with personal cabinet button")
     @Parameters({"chrome", "edge", "firefox", "yandex"})
     public void checkTheAbbilityToLogInUsingWithPersonalCabinetButtonWithPositiveResultTest(String driverType) throws MalformedURLException {
-        Pair<String, CreateUserModel> userData = createTestUser();
         driver = setupDriver(driverType);
 
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
@@ -63,22 +56,19 @@ public class LoginPageTest extends TestBase {
 
         loginPageObject.waitUntilLoginPageHeaderWillBeLoaded();
 
-        loginPageObject.fillLoginForm(userData.getValue1().getEmail(), userData.getValue1().getPassword());
+        loginPageObject.fillLoginForm(userData.getValue0().getEmail(), userData.getValue0().getPassword());
 
         loginPageObject.clickToLoginButton();
 
         orderPageObject.waitUntilMainPageHeaderWillBeLoaded();
 
         assertTrue(orderPageObject.isAccessTokenExistsInLocalStorage());
-
-        getUserDeleteResponse(userData.getValue0());
     }
 
     @Test
     @DisplayName("Attempt to login user with login button on registration page")
     @Parameters({"chrome", "edge", "firefox", "yandex"})
     public void checkTheAbbilityToLogInUsingLoginButtonOnRegistrationPageWithPositiveResultTest(String driverType) throws MalformedURLException {
-        Pair<String, CreateUserModel> userData = createTestUser();
         driver = setupDriver(driverType, FRONT_REG_PAGE);
 
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
@@ -93,22 +83,19 @@ public class LoginPageTest extends TestBase {
 
         loginPageObject.waitUntilLoginPageHeaderWillBeLoaded();
 
-        loginPageObject.fillLoginForm(userData.getValue1().getEmail(), userData.getValue1().getPassword());
+        loginPageObject.fillLoginForm(userData.getValue0().getEmail(), userData.getValue0().getPassword());
 
         loginPageObject.clickToLoginButton();
 
          orderPageObject.waitUntilMainPageHeaderWillBeLoaded();
 
          assertTrue(orderPageObject.isAccessTokenExistsInLocalStorage());
-
-         getUserDeleteResponse(userData.getValue0());
     }
 
     @Test
     @DisplayName("Attempt to login user with login button on restore password page")
     @Parameters({"chrome", "edge", "firefox", "yandex"})
     public void checkTheAbbilityToLogInUsingLoginButtonOnRestorePsswordPageWithPositiveResultTest(String driverType) throws MalformedURLException {
-        Pair<String, CreateUserModel> userData = createTestUser();
         driver = setupDriver(driverType, FRONT_RESTORE_PAGE);
 
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
@@ -123,22 +110,19 @@ public class LoginPageTest extends TestBase {
 
         loginPageObject.waitUntilLoginPageHeaderWillBeLoaded();
 
-        loginPageObject.fillLoginForm(userData.getValue1().getEmail(), userData.getValue1().getPassword());
+        loginPageObject.fillLoginForm(userData.getValue0().getEmail(), userData.getValue0().getPassword());
 
         loginPageObject.clickToLoginButton();
 
         orderPageObject.waitUntilMainPageHeaderWillBeLoaded();
 
         assertTrue(orderPageObject.isAccessTokenExistsInLocalStorage());
-
-        getUserDeleteResponse(userData.getValue0());
     }
 
     @Test
     @DisplayName("Attempt to login user with login button on restore password page")
     @Parameters({"chrome", "edge", "firefox", "yandex"})
     public void checkTheAbbilityToGoToPersonalCabinetPageByClickOnPersonalCabinetButtonWithPositiveResultTest(String driverType) throws MalformedURLException {
-        Pair<String, CreateUserModel> userData = createTestUser();
         driver = setupDriver(driverType);
 
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
@@ -152,7 +136,7 @@ public class LoginPageTest extends TestBase {
 
         loginPageObject.waitUntilLoginPageHeaderWillBeLoaded();
 
-        loginPageObject.fillLoginForm(userData.getValue1().getEmail(), userData.getValue1().getPassword());
+        loginPageObject.fillLoginForm(userData.getValue0().getEmail(), userData.getValue0().getPassword());
 
         loginPageObject.clickToLoginButton();
 
@@ -167,7 +151,5 @@ public class LoginPageTest extends TestBase {
         orderPageObject.waitUntilMainPageHeaderWillBeLoaded();
 
         assertTrue(orderPageObject.isMainPageHeaderDisplayed());
-
-        getUserDeleteResponse(userData.getValue0());
     }
 }

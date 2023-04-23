@@ -20,13 +20,14 @@ public class RegistrationPageObject extends LoginBasePageObject {
     private WebElement incorrectPasswordError;
 
     private final By registrationFields = By.xpath(".//form/fieldset/div/div/input");
+
     public RegistrationPageObject(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
     }
 
     public void clickToRegistrationButton() {
-        JavascriptExecutor js = ((JavascriptExecutor)driver);
+        JavascriptExecutor js = ((JavascriptExecutor) driver);
         js.executeScript("arguments[0].click()", registrationButton);
     }
 

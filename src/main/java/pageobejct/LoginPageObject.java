@@ -11,10 +11,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class LoginPageObject extends LoginBasePageObject {
 
     private final WebDriver driver;
+
     public LoginPageObject(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
     }
+
     @FindBy(xpath = ".//h2[text()='Вход']")
     private WebElement loginPageHeader;
 
@@ -28,7 +30,7 @@ public class LoginPageObject extends LoginBasePageObject {
     private WebElement loginButton;
 
     public void clickToLoginButton() {
-        JavascriptExecutor js = ((JavascriptExecutor)driver);
+        JavascriptExecutor js = ((JavascriptExecutor) driver);
         js.executeScript("arguments[0].click()", loginButton);
     }
 
@@ -36,6 +38,7 @@ public class LoginPageObject extends LoginBasePageObject {
         new WebDriverWait(driver, 3)
                 .until(ExpectedConditions.visibilityOf(loginPageHeader));
     }
+
     private void setEmail(String email) {
         emailInput.sendKeys(email);
     }
@@ -43,7 +46,7 @@ public class LoginPageObject extends LoginBasePageObject {
     private void setPassword(String password) {
         passwordInput.sendKeys(password);
     }
-    
+
     public void fillLoginForm(String email, String password) {
         setEmail(email);
         setPassword(password);

@@ -30,7 +30,7 @@ public class CreateUserModel extends LoginUserModel {
         return builder.build();
     }
 
-    public static CreateUserModel createFakeUser(Triplet<String, String,String> fields) {
+    public static CreateUserModel createFakeUser(Triplet<String, String, String> fields) {
         Faker faker = new Faker();
         CreateUserModelBuilder<?, ?> builder = CreateUserModel.builder();
         if (fields.getValue0() == null) {

@@ -10,7 +10,7 @@ public class LoginBasePageObject {
     protected WebElement loginButton;
 
     public void clickToLoginButton(WebDriver driver) {
-        JavascriptExecutor js = ((JavascriptExecutor)driver);
+        JavascriptExecutor js = ((JavascriptExecutor) driver);
         js.executeScript("arguments[0].click()", loginButton);
     }
 }

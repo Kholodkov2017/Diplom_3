@@ -7,7 +7,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.*;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.util.List;
 import java.util.Map;
 
@@ -78,7 +79,8 @@ public class OrderPageObject {
         addIdsToIngredients(indexOfIngredient, ingredientType);
 
         // Находим элемент с помощью id
-        WebElement ingredientButton = ingredientsTypeDiv.findElement(By.xpath(String.format(".//div[@id=\"%s\"]", ingredientType)));
+        WebElement ingredientButton = ingredientsTypeDiv.findElement(By.xpath(
+                String.format(".//div[@id=\"%s\"]", ingredientType)));
 
         // Удаляем стиль pointer-events для того чтобы можно было кликнуть по первому элементу и проверить скролл
         removeNoClickable(ingredientButton);
@@ -91,12 +93,14 @@ public class OrderPageObject {
 
     private void removeAllModals() {
         JavascriptExecutor js = ((JavascriptExecutor) driver);
-        js.executeScript("return document.querySelectorAll(\"div[class^='Modal']\").forEach(function(element) {element.remove();})");
+        js.executeScript("return document.querySelectorAll(\"div[class^='Modal']\")" +
+                ".forEach(function(element) {element.remove();})");
     }
 
     private void addIdsToIngredients(Integer indexOfElement, String ingredientType) {
         JavascriptExecutor js = ((JavascriptExecutor) driver);
-        String jsScript = String.format("return document.querySelector(\"section[class^='BurgerIngredients_ingredients'] > div\").children[\"%s\"].setAttribute('id', \"%s\")",
+        String jsScript = String.format("return document.querySelector(\"section[class^=" +
+                        "'BurgerIngredients_ingredients'] > div\").children[\"%s\"].setAttribute('id', \"%s\")",
                 indexOfElement, ingredientType);
         js.executeScript(jsScript);
     }
@@ -107,7 +111,8 @@ public class OrderPageObject {
     }
 
     private void clickToTheNavElement(String ingredientType) {
-        String jsScript = String.format("return setTimeout(() => {document.querySelector(\"div[id='%s']\").click()}, 100)", ingredientType);
+        String jsScript = String.format("return setTimeout(() => {document.querySelector(\"div[id='%s']\")" +
+                ".click()}, 100)", ingredientType);
         JavascriptExecutor js = ((JavascriptExecutor) driver);
         js.executeScript(jsScript);
     }
@@ -138,14 +143,12 @@ public class OrderPageObject {
     public void waitUntilIngredientTypeWillBeChanged(String ingredientType) {
         String xpath = String.format(".//h2[text()='%s']", ingredientType);
         new WebDriverWait(driver, DEFAULT_WAITING).until(driver -> !isVisibleInViewport(driver.findElement(By.xpath(xpath))));
-//        String xpath = String.format(".//div[contains(@class,'current')]/span[text()='%s']", ingredientType);
-//        new WebDriverWait(driver, DEFAULT_WAITING).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(xpath))));
     }
 
-    public static Boolean isVisibleInViewport(WebElement element) {
-        WebDriver dr = ((RemoteWebElement)element).getWrappedDriver();
+    private static Boolean isVisibleInViewport(WebElement element) {
+        WebDriver dr = ((RemoteWebElement) element).getWrappedDriver();
 
-        return (Boolean)((JavascriptExecutor)dr).executeScript(
+        return (Boolean) ((JavascriptExecutor) dr).executeScript(
                 "var elem = arguments[0],                 " +
                         "  box = elem.getBoundingClientRect(),    " +
                         "  cx = box.left + box.width / 2,         " +

@@ -23,9 +23,8 @@ public class RegistrationPageTest extends TestBase {
     @Parameters({"chrome", "firefox", "edge", "yandex"})
     @DisplayName("Attempt to register new user with positive result")
     public void checkTheAbbilityToRegisterUserWithPositiveResultTest(String driverType) throws MalformedURLException {
-        CreateUserModel userShouldBeCreated = CreateUserModel.createFakeUser("");
-
         driver = setupDriver(driverType, FRONT_REG_PAGE);
+        CreateUserModel userShouldBeCreated = CreateUserModel.createFakeUser("");
 
         RegistrationPageObject registrationPageObject = new RegistrationPageObject(driver);
         OrderPageObject orderPageObject = new OrderPageObject(driver);

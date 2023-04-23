@@ -12,6 +12,7 @@ import static helpers.Constants.DEFAULT_WAITING;
 
 public class PersonalCabinetPageObject {
     private final WebDriver driver;
+
     public PersonalCabinetPageObject(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
@@ -34,13 +35,14 @@ public class PersonalCabinetPageObject {
     public boolean isProfileButtonDisplayed() {
         return profileButton.isDisplayed();
     }
+
     public void clickToStellarBurgerLogo() {
-        JavascriptExecutor js = ((JavascriptExecutor)driver);
+        JavascriptExecutor js = ((JavascriptExecutor) driver);
         js.executeScript("arguments[0].click()", stellarBurgerLogoLink);
     }
 
     public void clickToLogoutButton() {
-        JavascriptExecutor js = ((JavascriptExecutor)driver);
+        JavascriptExecutor js = ((JavascriptExecutor) driver);
         js.executeScript("arguments[0].click()", logoutButton);
     }
 }
