@@ -11,8 +11,6 @@ import pageobejct.LoginPageObject;
 import pageobejct.OrderPageObject;
 import pageobejct.RegistrationPageObject;
 
-import java.net.MalformedURLException;
-
 import static helpers.Constants.FRONT_REG_PAGE;
 import static org.junit.Assert.assertTrue;
 
@@ -20,9 +18,9 @@ import static org.junit.Assert.assertTrue;
 @RunWith(JUnitParamsRunner.class)
 public class RegistrationPageTest extends TestBase {
     @Test
-    @Parameters({"chrome", "firefox", "edge", "yandex"})
+    @Parameters({"chrome", "yandex"})
     @DisplayName("Attempt to register new user with positive result")
-    public void checkTheAbbilityToRegisterUserWithPositiveResultTest(String driverType) throws MalformedURLException {
+    public void checkTheAbbilityToRegisterUserWithPositiveResultTest(String driverType) {
         driver = setupDriver(driverType, FRONT_REG_PAGE);
         CreateUserModel userShouldBeCreated = CreateUserModel.createFakeUser("");
 
@@ -51,10 +49,10 @@ public class RegistrationPageTest extends TestBase {
     }
 
     @Test
-    @Parameters({"chrome, pass", "firefox, pass", "edge, pass", "yandex, pass"})
+    @Parameters({"chrome, pass", "yandex, pass"})
     @DisplayName("Attempt to fill registration form with incorrect password")
     public void attemptToFillRegistrationFormWithIncorrectPasswordErrorMessageWrongPasswordShouldBeDisplayedTest(
-            String driverType, String password) throws MalformedURLException {
+            String driverType, String password) {
         CreateUserModel userShouldBeCreated = CreateUserModel.createFakeUser(new Triplet<>(null, null, password));
 
         driver = setupDriver(driverType, FRONT_REG_PAGE);

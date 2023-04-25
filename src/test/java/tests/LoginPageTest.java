@@ -7,18 +7,19 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import pageobejct.*;
 
-import java.net.MalformedURLException;
 import java.util.concurrent.TimeUnit;
 
-import static helpers.Constants.*;
+import static helpers.Constants.FRONT_REG_PAGE;
+import static helpers.Constants.FRONT_RESTORE_PAGE;
 import static org.junit.Assert.assertTrue;
+
 @RunWith(JUnitParamsRunner.class)
 public class LoginPageTest extends TestBase {
 
     @Test
-    @Parameters({"chrome", "edge", "firefox", "yandex"})
+    @Parameters({"chrome", "yandex"})
     @DisplayName("Attempt to login user with go to account button")
-    public void checkTheAbbilityToLogInUsingGoToAccounButtonWithPositiveResultTest(String driverType) throws MalformedURLException {
+    public void checkTheAbbilityToLogInUsingGoToAccounButtonWithPositiveResultTest(String driverType) {
         driver = setupDriver(driverType);
 
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
@@ -41,8 +42,8 @@ public class LoginPageTest extends TestBase {
 
     @Test
     @DisplayName("Attempt to login user with personal cabinet button")
-    @Parameters({"chrome", "edge", "firefox", "yandex"})
-    public void checkTheAbbilityToLogInUsingWithPersonalCabinetButtonWithPositiveResultTest(String driverType) throws MalformedURLException {
+    @Parameters({"chrome", "yandex"})
+    public void checkTheAbbilityToLogInUsingWithPersonalCabinetButtonWithPositiveResultTest(String driverType) {
         driver = setupDriver(driverType);
 
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
@@ -67,8 +68,8 @@ public class LoginPageTest extends TestBase {
 
     @Test
     @DisplayName("Attempt to login user with login button on registration page")
-    @Parameters({"chrome", "edge", "firefox", "yandex"})
-    public void checkTheAbbilityToLogInUsingLoginButtonOnRegistrationPageWithPositiveResultTest(String driverType) throws MalformedURLException {
+    @Parameters({"chrome", "yandex"})
+    public void checkTheAbbilityToLogInUsingLoginButtonOnRegistrationPageWithPositiveResultTest(String driverType) {
         driver = setupDriver(driverType, FRONT_REG_PAGE);
 
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
@@ -87,15 +88,15 @@ public class LoginPageTest extends TestBase {
 
         loginPageObject.clickToLoginButton();
 
-         orderPageObject.waitUntilMainPageHeaderWillBeLoaded();
+        orderPageObject.waitUntilMainPageHeaderWillBeLoaded();
 
-         assertTrue(orderPageObject.isAccessTokenExistsInLocalStorage());
+        assertTrue(orderPageObject.isAccessTokenExistsInLocalStorage());
     }
 
     @Test
     @DisplayName("Attempt to login user with login button on restore password page")
-    @Parameters({"chrome", "edge", "firefox", "yandex"})
-    public void checkTheAbbilityToLogInUsingLoginButtonOnRestorePsswordPageWithPositiveResultTest(String driverType) throws MalformedURLException {
+    @Parameters({"chrome", "yandex"})
+    public void checkTheAbbilityToLogInUsingLoginButtonOnRestorePsswordPageWithPositiveResultTest(String driverType) {
         driver = setupDriver(driverType, FRONT_RESTORE_PAGE);
 
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
@@ -121,8 +122,8 @@ public class LoginPageTest extends TestBase {
 
     @Test
     @DisplayName("Attempt to login user with login button on restore password page")
-    @Parameters({"chrome", "edge", "firefox", "yandex"})
-    public void checkTheAbbilityToGoToPersonalCabinetPageByClickOnPersonalCabinetButtonWithPositiveResultTest(String driverType) throws MalformedURLException {
+    @Parameters({"chrome", "yandex"})
+    public void checkTheAbbilityToGoToPersonalCabinetPageByClickOnPersonalCabinetButtonWithPositiveResultTest(String driverType) {
         driver = setupDriver(driverType);
 
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);

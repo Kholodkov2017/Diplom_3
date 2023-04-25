@@ -9,7 +9,6 @@ import org.javatuples.Triplet;
 import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.WebDriver;
-import java.net.MalformedURLException;
 
 import static clients.UserClient.getUserCreationResponse;
 import static clients.UserClient.getUserDeleteResponse;
@@ -39,13 +38,13 @@ public class TestBase {
         return new Pair<>(response.extract().path("accessToken"), userShouldBeCreated);
     }
 
-    protected WebDriver setupDriver(String driverType) throws MalformedURLException {
+    protected WebDriver setupDriver(String driverType) {
         WebDriver driver = DriverFactoryHelper.setupDriver(driverType);
         driver.get(BASE_URL);
         return driver;
     }
 
-    protected WebDriver setupDriver(String driverType, String urlPath) throws MalformedURLException {
+    protected WebDriver setupDriver(String driverType, String urlPath) {
         WebDriver driver = DriverFactoryHelper.setupDriver(driverType);
         driver.get(BASE_URL + urlPath);
         return driver;

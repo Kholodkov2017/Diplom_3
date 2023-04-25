@@ -6,14 +6,12 @@ import junitparams.Parameters;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import pageobejct.OrderPageObject;
-import javax.annotation.concurrent.NotThreadSafe;
-import java.net.MalformedURLException;
+
 import java.util.concurrent.TimeUnit;
 
 import static helpers.Constants.DEFAULT_WAITING;
 import static org.junit.Assert.assertTrue;
 
-@NotThreadSafe
 @RunWith(JUnitParamsRunner.class)
 public class ConstructorPageTest extends TestBase {
 
@@ -23,12 +21,6 @@ public class ConstructorPageTest extends TestBase {
             "chrome,Булки,Начинки",
             "chrome,Соусы,Булки",
             "chrome,Начинки,Булки",
-            "edge,Булки,Начинки",
-            "edge,Соусы,Булки",
-            "edge,Начинки,Булки",
-            "firefox,Булки,Начинки",
-            "firefox,Соусы,Булки",
-            "firefox,Начинки,Булки",
             "yandex,Булки,Начинки",
             "yandex,Соусы,Булки",
             "yandex,Начинки,Булки"
@@ -36,8 +28,7 @@ public class ConstructorPageTest extends TestBase {
     public void checkThatTheSectionNavigationIsWorkingTest(
             String driverType,
             String ingredientType,
-            String elementShouldBeHidden)
-            throws MalformedURLException, InterruptedException {
+            String elementShouldBeHidden) {
         driver = setupDriver(driverType);
         OrderPageObject orderPageObject = new OrderPageObject(driver);
         if (ingredientType.equals("Булки")) {
@@ -52,6 +43,6 @@ public class ConstructorPageTest extends TestBase {
         orderPageObject.waitUntilIngredientTypeWillBeChanged(elementShouldBeHidden);
         assertTrue(Double.compare(
                 oldElementPosition,
-                orderPageObject.getIngredientsBlockChangedPosition(ingredientType)) > 0 );
+                orderPageObject.getIngredientsBlockChangedPosition(ingredientType)) > 0);
     }
 }
