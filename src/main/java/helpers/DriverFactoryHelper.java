@@ -1,42 +1,28 @@
 package helpers;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.BrowserType;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class DriverFactoryHelper {
-    private static final String DEFAULT_BROWSER_VERSION = "111.0";
-    private static final String YANDEX_BROWSER_VERSION = "110.0.5481.208";
-    private static final String SELENIUM_GRID_ADDRESS = "http://localhost:4444/wd/hub";
 
-    public static WebDriver setupDriver(String driverType) throws MalformedURLException {
+    private static final String CHROME_DRIVER_NAME = "chromedriver.exe";
+    private static final String YANDEX_DRIVER_NAME = "yandexdriver.exe";
 
+    public static WebDriver setupDriver(String driverType) {
+        Path driversDir = Paths.get(System.getProperty("user.dir"), "src", "main", "resources", "drivers");
 
-        switch (driverType) {
-            case "chrome": {
-                return initializeRemoteWebDriver(BrowserType.CHROME, DEFAULT_BROWSER_VERSION);
-            }
-            case "edge": {
-                return initializeRemoteWebDriver(BrowserType.EDGE, DEFAULT_BROWSER_VERSION);
-            }
-            case "firefox": {
-                return initializeRemoteWebDriver(BrowserType.FIREFOX, DEFAULT_BROWSER_VERSION);
-            }
-            default: {
-                return initializeRemoteWebDriver(BrowserType.CHROME, YANDEX_BROWSER_VERSION);
-            }
+        if (driverType.equals("chrome")) {
+            return initializeWebDriver(Paths.get(driversDir.toString(), CHROME_DRIVER_NAME).toString());
         }
+        return initializeWebDriver(Paths.get(driversDir.toString(),  YANDEX_DRIVER_NAME).toString());
     }
 
-    private static WebDriver initializeRemoteWebDriver(String driverType, String driverVersion) throws MalformedURLException {
-        DesiredCapabilities caps = new DesiredCapabilities();
-        caps.setBrowserName(driverType);
-        caps.setVersion(driverVersion);
-        WebDriver driver = new RemoteWebDriver(new URL(SELENIUM_GRID_ADDRESS), caps);
+    private static WebDriver initializeWebDriver(String pathToDriver) {
+        System.setProperty("webdriver.chrome.driver", pathToDriver);
+        ChromeDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
         return driver;
     }
